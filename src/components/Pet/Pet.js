@@ -1,44 +1,45 @@
 import React from 'react';
-
 import './Pet.css';
+import ApiService from '../services/ApiService';
 
 class Pet extends React.Component {
 
+  handleAdoptCat = () => {
+    ApiService.adoptCat();
+  }
+
+  handleAdoptDog = () => {
+    ApiService.adoptDog();
+  }
+
   render() {
 
-    let checkbox;
+    let button;
 
     if (this.props.type === 'cat') {
-      checkbox = (
-        <>
-          <label htmlFor="adoptCat">Checkbox</label>
-          <input name="adoptCat" type="checkbox"></input>
-        </>
+      button = (
+          <input name="adoptCat" type="button" value='Adopt this cat' onClick={this.handleAdoptCat}></input>
       );
     }
 
     if (this.props.type === 'dog') {
-      checkbox = (
-        <>
-          <label htmlFor="adoptDog">Checkbox</label>
-          <input name="adoptDog" type="checkbox"></input>
-        </>
+      button = (
+          <input name="adoptDog" type="button" value='Adopt this dog' onClick={this.handleAdoptDog}></input>
       );
     }
 
     return (
       <div className="Pet">
 
-        <p>image</p>
-
+        <p>imageURL</p>
         <ul>
-          <li>alpha</li>
-          <li>bravo</li>
-          <li>charlie</li>
+          <li>name</li>
+          <li>sex</li>
+          <li>age</li>
+          <li>breed</li>
+          <li>story</li>
         </ul>
-
-        { checkbox }
-
+        { button }
       </div>
     );
   }

@@ -1,5 +1,7 @@
 import React from 'react';
 import Pet from '../Pet/Pet';
+import ApiService from '../services/ApiService';
+
 
 import './AdoptionRoute.css';
 
@@ -9,8 +11,20 @@ class AdoptionRoute extends React.Component {
 
     ev.preventDefault();
 
-    // get adoptCat
+    const { adoptDog, adoptCat } = ev.target;
+
+    // ApiService.adopt(adoptDog.checked, adoptCat.checked)
+    // .then(res => console.log(res))
+    ApiService.getDog().then(res => {
+      console.log(res);
+    })
+
+    ApiService.getCat().then(res => {
+      console.log(res);
+    })
+
     // get adoptDog
+    // get adoptCat
 
     // fetch
       // good
