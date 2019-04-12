@@ -1,5 +1,7 @@
 import config from "../config";
 
+
+
 const ApiService = {
   getDog() {
     return fetch(`${config.API_ENDPOINT}/dog`)
@@ -14,18 +16,20 @@ const ApiService = {
     );
   },
   adoptDog() {
+    const token = window.localStorage.getItem('token');
     return fetch(`${config.API_ENDPOINT}/dog`, {
       method: 'DELETE',
       headers: {
-        authorization: `bearer xxxxxxxxxxxxxx`
+        authorization: `bearer ${token}`
       }
     });
   },
   adoptCat() {
+    const token = window.localStorage.getItem('token');
     return fetch(`${config.API_ENDPOINT}/cat`, {
       method: 'DELETE',
       headers: {
-        authorization: `bearer xxxxxxxxxxxxxx`
+        authorization: `bearer ${token}`
       }
     });
   },
