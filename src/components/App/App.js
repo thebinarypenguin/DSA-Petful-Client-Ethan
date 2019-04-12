@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomeRoute from '../HomeRoute/HomeRoute';
 import AdoptionRoute from '../AdoptionRoute/AdoptionRoute';
+import { Link } from 'react-router-dom';
 
 import './App.css';
 
@@ -11,12 +12,11 @@ class App extends React.Component {
     return (
       <div id="App">
 
-        <header>
-          <h1>Petful</h1>
-        </header>
-
         <main>
           <Router>
+          <header>
+            <Link to="/"><h1 className='Logo'>Petful</h1></Link>
+          </header>
             <Route exact path='/' component={HomeRoute} />
             <Route path='/adopt' component={AdoptionRoute} />
           </Router>
