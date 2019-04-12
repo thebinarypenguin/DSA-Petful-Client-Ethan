@@ -1,0 +1,9 @@
+#App {
+  border: 1px solid black;
+  max-width: 768px;
+  margin: auto;
+}
+
+#App header {
+  text-align: center;
+}
