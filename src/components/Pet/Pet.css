@@ -1,0 +1,14 @@
+.Pet {
+  text-align: center;
+}
+
+.Pet img {
+  width: 75%;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+.Pet table {
+  margin: auto;
+  margin-bottom: 2rem;
+}
