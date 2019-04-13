@@ -1,7 +1,5 @@
 import config from "../config";
 
-
-
 const ApiService = {
   getDog() {
     return fetch(`${config.API_ENDPOINT}/dog`)
@@ -37,7 +35,19 @@ const ApiService = {
     return fetch(`${config.API_ENDPOINT}/token`)
     .then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
-    ).then(obj => obj.token)
+    )
+  },
+  getPosition() {
+    return fetch(`${config.API_ENDPOINT}/position`)
+    .then(res =>
+      !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
+    )
+  },
+  resetQueues() {
+    return fetch(`${config.API_ENDPOINT}/reset`)
+    .then(res =>
+      !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
+    )
   },
 };
 
