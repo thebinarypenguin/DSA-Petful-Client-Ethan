@@ -14,7 +14,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "now --name petful ./build",
+    "deploy": "now ./build",
     "postdeploy": "now alias -A ./build/now.json"
   },
   "eslintConfig": {
