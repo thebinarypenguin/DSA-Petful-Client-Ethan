@@ -17,21 +17,6 @@ class Pet extends React.Component {
     };
   }
 
-  componentDidMount() {
-
-    if (this.props.type === "cat") {
-      ApiService.getCat().then(cat => {
-        this.setState({ pet: cat });
-      }).catch(() => {});
-    }
-
-    if (this.props.type === "dog") {
-      ApiService.getDog().then(dog => {
-        this.setState({ pet: dog });
-      }).catch(() => {});
-    }
-  }
-
   handleAdoptCat = () => {
 
     ApiService.adoptCat().then(data => {
@@ -85,34 +70,46 @@ class Pet extends React.Component {
       );
     }
 
+    if (this.props.position > 1) {
+      button = (
+        <input
+          name="waiting"
+          type="button"
+          value="Waiting"
+          disabled
+          className="Button"
+        />
+      );
+    }
+
     return (
       <div className="Pet">
         <img
-          src={this.state.pet.imageURL}
-          alt={this.state.pet.imageDescription}
+          src={this.props.pet.imageURL}
+          alt={this.props.pet.imageDescription}
         />
 
         <table>
           <tbody>
             <tr>
               <th>Name</th>
-              <td>{this.state.pet.name}</td>
+              <td>{this.props.pet.name}</td>
             </tr>
             <tr>
               <th>Sex</th>
-              <td>{this.state.pet.sex}</td>
+              <td>{this.props.pet.sex}</td>
             </tr>
             <tr>
               <th>Age</th>
-              <td>{this.state.pet.age}</td>
+              <td>{this.props.pet.age}</td>
             </tr>
             <tr>
               <th>Breed</th>
-              <td>{this.state.pet.breed}</td>
+              <td>{this.props.pet.breed}</td>
             </tr>
             <tr>
               <th>Story</th>
-              <td>{this.state.pet.story}</td>
+              <td>{this.props.pet.story}</td>
             </tr>
           </tbody>
         </table>
@@ -137,7 +134,7 @@ class Pet extends React.Component {
       return this.renderThankYou();
     }
 
-    if (this.state.pet) {
+    if (this.props.pet) {
       return this.renderPet();
     }
 
