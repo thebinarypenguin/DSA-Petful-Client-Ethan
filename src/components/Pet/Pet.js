@@ -5,91 +5,63 @@ import ApiService from "../../services/ApiService";
 import "./Pet.css";
 
 class Pet extends React.Component {
+
   constructor(props) {
+
     super(props);
+
     this.state = {
-      pet: []
+      pet: null,
+      adopted: false,
+      errorMessage: null,
     };
   }
 
   componentDidMount() {
+
     if (this.props.type === "cat") {
       ApiService.getCat().then(cat => {
         this.setState({ pet: cat });
-      });
+      }).catch(() => {});
     }
 
     if (this.props.type === "dog") {
       ApiService.getDog().then(dog => {
         this.setState({ pet: dog });
-      });
+      }).catch(() => {});
     }
   }
 
   handleAdoptCat = () => {
-    ApiService.adoptCat().then(newCat => {
-      ApiService.getCat().then(cat => {
-        this.setState({ pet: cat });
-      }).catch(() => {
-        this.setState({ pet: []});
-      })
+
+    ApiService.adoptCat().then(data => {
+      this.setState({ adopted: true });
+    }).catch((resp) => {
+      this.setState({ errorMessage: resp.message });
     });
   };
 
   handleAdoptDog = () => {
-    ApiService.adoptDog().then(newDog => {
-      ApiService.getDog().then(dog => {
-        this.setState({ pet: dog });
-      }).catch(() => {
-        this.setState({ pet: []});
-      })
+
+    ApiService.adoptDog().then(data => {
+      this.setState({ adopted: true });
+    }).catch((resp) => {
+      this.setState({ errorMessage: resp.message });
     });
   };
 
-  render() {
-    let details;
+  renderEmptyQueue = () => {
 
-    if (this.state.pet.length === 0) {
-      return <p>Sorry, we're out</p>;
-    } else if (this.state.pet) {
-      details = (
-        <>
-          <img
-            src={this.state.pet.imageURL}
-            alt={this.state.pet.imageDescription}
-          />
+    return (
+      <div className="Pet">no pets</div>
+    );
+  }
 
-          <table>
-            <tbody>
-              <tr>
-                <th>Name</th>
-                <td>{this.state.pet.name}</td>
-              </tr>
-              <tr>
-                <th>Sex</th>
-                <td>{this.state.pet.sex}</td>
-              </tr>
-              <tr>
-                <th>Age</th>
-                <td>{this.state.pet.age}</td>
-              </tr>
-              <tr>
-                <th>Breed</th>
-                <td>{this.state.pet.breed}</td>
-              </tr>
-              <tr>
-                <th>Story</th>
-                <td>{this.state.pet.story}</td>
-              </tr>
-            </tbody>
-          </table>
-        </>
-      );
-    }
+  renderPet = () => {
 
     let button;
 
-    if (this.props.type === "cat") {
+    if (this.props.type === 'cat') {
       button = (
         <input
           name="adoptCat"
@@ -101,7 +73,7 @@ class Pet extends React.Component {
       );
     }
 
-    if (this.props.type === "dog") {
+    if (this.props.type === 'dog') {
       button = (
         <input
           name="adoptDog"
@@ -115,10 +87,61 @@ class Pet extends React.Component {
 
     return (
       <div className="Pet">
-        {details}
-        {button}
+        <img
+          src={this.state.pet.imageURL}
+          alt={this.state.pet.imageDescription}
+        />
+
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <td>{this.state.pet.name}</td>
+            </tr>
+            <tr>
+              <th>Sex</th>
+              <td>{this.state.pet.sex}</td>
+            </tr>
+            <tr>
+              <th>Age</th>
+              <td>{this.state.pet.age}</td>
+            </tr>
+            <tr>
+              <th>Breed</th>
+              <td>{this.state.pet.breed}</td>
+            </tr>
+            <tr>
+              <th>Story</th>
+              <td>{this.state.pet.story}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div className="ErrorMessage">{this.state.errorMessage}</div>
+
+        { button }
       </div>
     );
+  }
+
+  renderThankYou = () => {
+
+    return (
+      <div className="Pet">Thank You</div>
+    );
+  }
+
+  render() {
+
+    if (this.state.adopted) {
+      return this.renderThankYou();
+    }
+
+    if (this.state.pet) {
+      return this.renderPet();
+    }
+
+    return this.renderEmptyQueue();
   }
 }
 

@@ -20,7 +20,10 @@ const ApiService = {
       headers: {
         authorization: `bearer ${token}`
       }
-    });
+    })
+    .then(res =>
+      !res.ok ? res.json().then(e => Promise.reject(e)) : null
+    );
   },
   adoptCat() {
     const token = window.localStorage.getItem('token');
@@ -29,7 +32,10 @@ const ApiService = {
       headers: {
         authorization: `bearer ${token}`
       }
-    });
+    })
+    .then(res =>
+      !res.ok ? res.json().then(e => Promise.reject(e)) : null
+    );
   },
   getToken() {
     return fetch(`${config.API_ENDPOINT}/token`)
@@ -38,7 +44,12 @@ const ApiService = {
     )
   },
   getPosition() {
-    return fetch(`${config.API_ENDPOINT}/position`)
+    const token = window.localStorage.getItem('token');
+    return fetch(`${config.API_ENDPOINT}/position`, {
+      headers: {
+        authorization: `bearer ${token}`
+      }
+    })
     .then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
     )
