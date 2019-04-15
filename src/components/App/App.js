@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomeRoute from '../HomeRoute/HomeRoute';
 import AdoptionRoute from '../AdoptionRoute/AdoptionRoute';
+import ResetRoute from '../ResetRoute/ResetRoute'
+
 import { Link } from 'react-router-dom';
 
 import './App.css';
@@ -19,6 +21,7 @@ class App extends React.Component {
           </header>
             <Route exact path='/' component={HomeRoute} />
             <Route path='/adopt' component={AdoptionRoute} />
+            <Route path='/reset' component={ResetRoute} />
           </Router>
         </main>
 
